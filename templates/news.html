@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>ТК "МИР"</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/news-page.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/core style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="gradient-section">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <a href="{{ url_for('index') }}"> <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Logo" class="logo" /></a>
+                </div>
+                <div class="icons-wrapper">
+                    <a href="tel:+74955320104" class="icon-circle phone-icon">
+                        <img src="{{ url_for('static', filename='img/Phone.png') }}" alt="Phone" />
+                    </a>
+                    <div class="icon-circle menu-icon" id="menuButton"> <!-- Кнопка меню -->
+                        <img src="{{ url_for('static', filename='img/Menu.png') }}" alt="Menu" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+<nav class="navigation">
+    <div class="container">
+        <div class="nav-links">
+            <a href="{{ url_for('about') }}" class="nav-button">О Компании</a>
+            <a href="{{ url_for('news') }}" class="nav-button">Новости</a>
+            <a href="https://tkmir.su" class="nav-button">Магазин</a>
+            <a href="{{ url_for('contact') }}" class="nav-button">Контакты</a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Затемнение экрана -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Меню -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-buttons">
+            <a href="{{ url_for('index') }}">Главная</a>
+            <a href="{{ url_for('about') }}">О компании</a>
+            <a href="{{ url_for('news') }}">Новости</a>
+            <a href="https://tkmir.su">Магазин</a>
+            <a href="{{ url_for('contact') }}">Контакты</a>
+            <a href="tel:+74955320104">+7 (495) 532-01-04</a>
+        </div>
+
+        <div class="contact-info">Контактная информация</div>
+        <div class="contact-info">info@tkmir.su</div>
+        <div class="contact-info">г. Москва, ул. Иркутская, 2к1</div>
+    </div>
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="news-megatitle">КОНТАКТЫ</h2>
+            <div class="news-block">
+                {% for news_item in news %}  <!-- Предполагается, что 'news' передается из Flask -->
+                    <div class="news-card">
+                        <img src="{{ url_for('static', filename='news_img/' + news_item.image) }}" alt="{{ news_item.image }}" class="news-image">
+                        <h2 class="news-title">{{ news_item.title }}</h2>
+                        <p class="news-date">{{ news_item.date_created }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Section -->
+    <section class="email-section">
+       <div class="email-content">
+           <p class="email-text">УКАЖИТЕ E-MAIL, ЧТОБЫ МЫ МОГЛИ С ВАМИ СВЯЗАТЬСЯ</p>
+           <form class="email-form" id="emailForm" method="post" action="{{ url_for('subscribe') }}">
+               <input type="email" class="email-input" id="emailInput" name="email" placeholder="ВВЕДИТЕ E-MAIL" required>
+               <button type="submit" class="submit-button">ОТПРАВИТЬ</button>
+               <label class="terms-checkbox">
+                   <input type="checkbox" id="termsCheckbox" required>
+                   <span class="terms-text">Отправляя данную форму, Вы подтверждаете свое согласие на обработку персональных данных</span>
+               </label>
+           </form>
+       </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>ГЛАВНАЯ</h4>
+                    <ul>
+                        <li><a href="{{ url_for('about') }}">О компании</a></li>
+                        <li><a href="{{ url_for('contact') }}">Контакты</a></li>
+                        <li><a href="#">Помощь</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>ИНФОРМАЦИЯ</h4>
+                    <ul>
+                        <li><a href="#">Условия доставки</a></li>
+                        <li><a href="#">Условия оплаты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>КАТАЛОГ</h4>
+                    <ul>
+                        <li><a href="#">Промышленная химия</a></li>
+                        <li><a href="#">Пиломатериалы</a></li>
+                        <li><a href="#">Продукты промышленного назначения</a></li>
+                        <li><a href="#">Электрооборудование</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>НАШИ КОНТАКТЫ</h4>
+                    <ul>
+                        <li><a href="tel:+74955320104">+7 (495) 532-01-04</a></li>
+                        <li>г. Москва, ул. Иркутская, 2к1</li>
+			<li>info@tkmir.su</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/shadows and menus.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/email-receiver.js') }}"></script>
+</body>
+</html>

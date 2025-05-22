@@ -1,0 +1,63 @@
+.news-section {
+    background: linear-gradient(to bottom, #86A8CB 0%, #FFF 73%);
+    padding: 20px 0; /* Добавлен padding для секции */
+}
+
+.news-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Расположение карточек по 3 в ряд */
+}
+
+.news-megatitle {
+    align-self: flex-start;
+    font-size: 96px;
+    font-family: 'Alegreya', serif;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.news-card {
+    width: calc(33.33% - 10px); /* Ширина карточки, с учетом отступов */
+    margin-bottom: 20px;  /* Отступ между рядами карточек */
+    text-align: center;
+    background-color: #fff; /* Фон для карточки */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+
+}
+
+.news-image {
+    width: 100%;
+    height: 300px;
+    object-fit: contain; /* Сохранение пропорций, не обрезая */
+    max-width: 100%; /*  Чтобы изображение не выходило за границы контейнера  */
+    max-height: 100%;
+}
+
+.news-title {
+    font-family: 'Alegreya', serif;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /*  Ограничение в 3 строки  */
+    -webkit-box-orient: vertical;
+    height: 75px; /*  Примерная высота для 3 строк (можно корректировать)  */
+}
+
+.news-date {
+    font-family: 'Alegreya', serif;
+    font-style: italic;
+    font-size: 10px;
+    color: #666;
+}
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .news-card {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
