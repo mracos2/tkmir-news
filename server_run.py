@@ -145,7 +145,7 @@ def register():
 # --- News routes ---
 @app.route('/news')
 def news():
-    news_list = News.query.all()
+    news_list = News.query.filter(News.is_published == True).all()
     return render_template('news.html', news=news_list)
 
 @app.route('/news/<slug>')
