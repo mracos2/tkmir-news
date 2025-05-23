@@ -3,17 +3,35 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* Скрываем пустой контейнер */
+        .message-container:empty {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <h1>Login</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
+        
+        <!-- Блок сообщений с фильтрацией -->
+        {% with messages = get_flashed_messages(category_filter=["auth", "error", "info"]) %}
             {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
+                <div class="message-container">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.category }} alert-dismissible fade show" role="alert">
+                            {{ message.message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
         {% endwith %}
+
         <form method="POST" action="/login">
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -25,7 +43,33 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
-        <p>Еще нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a></p>
+        <p class="mt-3">Еще нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a></p>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Удаляем контейнер, если сообщений нет
+            const messageContainer = $('.message-container');
+            if (messageContainer.children().length === 0) {
+                messageContainer.remove();
+            }
+
+            // Автоматическое закрытие сообщений
+            $('.alert').each(function() {
+                const alert = $(this);
+                setTimeout(() => {
+                    alert.alert('close');
+                }, 5000);
+            });
+
+            // Очистка сессии после закрытия
+            $('.alert').on('closed.bs.alert', function() {
+                $.ajax({
+                    url: "/clear_flashes",
+                    method: "POST"
+                });
+            });
+        });
+    </script>
 </body>
 </html>

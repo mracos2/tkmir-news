@@ -286,6 +286,11 @@ def forbidden(e):
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.route("/clear_flashes", methods=["POST"])
+def clear_flashes():
+    session.pop("_flashes", None)
+    return "", 204
+
 # -------------------- Запуск приложения --------------------
 
 if __name__ == '__main__':

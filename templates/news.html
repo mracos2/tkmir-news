@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>ТК "МИР"</title>
+    <title>ТК "Новости ТК МИР"</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/news-page.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/core style.css') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -11,20 +11,28 @@
 <body>
     <!-- Header Section -->
     <header class="gradient-section">
+	<a href="{{ url_for('admin_panel') }}" 
+           class="admin-link" 
+           style="display: block; width: 20px; height: 20px; background: red; position: absolute; right: 0px; top: 0%; transform: translateY(-50%);">
         <div class="container">
             <div class="header-content">
-                <div class="header-left">
-                    <a href="{{ url_for('index') }}"> <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Logo" class="logo" /></a>
-                </div>
-                <div class="icons-wrapper">
-                    <a href="tel:+74955320104" class="icon-circle phone-icon">
-                        <img src="{{ url_for('static', filename='img/Phone.png') }}" alt="Phone" />
-                    </a>
-                    <div class="icon-circle menu-icon" id="menuButton"> <!-- Кнопка меню -->
-                        <img src="{{ url_for('static', filename='img/Menu.png') }}" alt="Menu" />
-                    </div>
-                </div>
-            </div>
+    <div class="header-left">
+        <a href="{{ url_for('index') }}"> <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Logo" class="logo" /></a>
+    </div>
+    <div class="icons-wrapper" style="position: relative;"> <!-- Добавлен контейнер с relative -->
+        <!-- Измененная кнопка с временным стилем для теста -->
+
+        </a>
+
+        <!-- Остальные иконки -->
+        <a href="tel:+74955320104" class="icon-circle phone-icon">
+            <img src="{{ url_for('static', filename='img/Phone.png') }}" alt="Phone" />
+        </a>
+        <div class="icon-circle menu-icon" id="menuButton">
+            <img src="{{ url_for('static', filename='img/Menu.png') }}" alt="Menu" />
+        </div>
+    </div>
+</div>
         </div>
     </header>
 
@@ -61,11 +69,11 @@
     <!-- News Section -->
     <section class="news-section">
         <div class="container">
-            <h2 class="news-megatitle">КОНТАКТЫ</h2>
+            <h2 class="news-megatitle">НОВОСТИ</h2>
             <div class="news-block">
                 {% for news_item in news %}  <!-- Предполагается, что 'news' передается из Flask -->
                     <div class="news-card">
-			<a href="{{ url_for('view_news', slug=news_item.slug) }}">
+			<a href="{{ url_for('view_news', slug=news_item.slug) }}"></a>
                         <img src="{{ url_for('static', filename='news_img/' + news_item.image) }}" alt="{{ news_item.image }}" class="news-image">
                         <h2 class="news-title">{{ news_item.title }}</h2>
                         <p class="news-date">{{ news_item.date_created }}</p>

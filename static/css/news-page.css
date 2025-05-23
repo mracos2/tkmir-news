@@ -16,7 +16,17 @@
     font-weight: 400;
     margin-bottom: 20px;
 }
-
+/* Стили для админ-кнопки */
+.admin-link {
+    position: absolute;
+    top: 0px;
+    right: 0px; /* Регулируйте позицию по необходимости */
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1000;
+}
 .news-card {
     width: calc(33.33% - 10px); /* Ширина карточки, с учетом отступов */
     margin-bottom: 20px;  /* Отступ между рядами карточек */
