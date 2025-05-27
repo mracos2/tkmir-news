@@ -218,24 +218,14 @@
                     <h4>ГЛАВНАЯ</h4>
                     <ul>
                         <li><a href="{{ url_for('about') }}">О компании</a></li>
+			<li><a href="{{ url_for('news') }}">Новости</a></li>
+			<li><a href="https://tkmir.su">Новости</a></li>
                         <li><a href="{{ url_for('contact') }}">Контакты</a></li>
-                        <li><a href="#">Помощь</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h4>ИНФОРМАЦИЯ</h4>
+                    <h4>НАШИ ПАРТНЕРЫ</h4>
                     <ul>
-                        <li><a href="#">Условия доставки</a></li>
-                        <li><a href="#">Условия оплаты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>КАТАЛОГ</h4>
-                    <ul>
-                        <li><a href="#">Промышленная химия</a></li>
-                        <li><a href="#">Пиломатериалы</a></li>
-                        <li><a href="#">Продукты промышленного назначения</a></li>
-                        <li><a href="#">Электрооборудование</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -249,7 +239,8 @@
             </div>
         </footer>
     </div>
-
+    
+    <script src="{{ url_for('static', filename='js/electronics-formating.js') }}"></script>
     <script src="{{ url_for('static', filename='js/shadows and menus.js') }}"></script>
     <script src="{{ url_for('static', filename='js/email-receiver.js') }}"></script>
 </body>
