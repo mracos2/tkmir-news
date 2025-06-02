@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import re
 import os
+import subprocess
 
 # -------------------- Конфигурация приложения --------------------
 
@@ -226,6 +227,58 @@ def delete_news(id):
     db.session.commit()
     flash('Новость успешно удалена!', 'success')
     return redirect(url_for('admin_panel'))
+
+@app.route('/admin/emails')
+#@login_required
+def admin_emails():
+    try:
+        # Запускаем скрипт emails_show.py и получаем вывод.
+        result = subprocess.run(['python', 'db/emails_show.py'], capture_output=True, text=True, check=True)
+        # Получаем путь к сгенерированному HTML файлу.
+        html_file_path = 'db/emails.html'
+        # Проверяем, существует ли файл
+        if os.path.exists(html_file_path):
+            # Читаем содержимое файла
+            with open(html_file_path, 'r', encoding='utf-8') as f:
+                emails_html = f.read()
+            return emails_html # Возвращаем содержимое файла
+        else:
+            return "Ошибка: Файл emails.html не найден.", 500
+
+    except subprocess.CalledProcessError as e:
+        print(f"Ошибка при запуске emails_show.py: {e}")
+        return "Ошибка при получении списка подписок.", 500  #  Возвращаем ошибку 500
+    except FileNotFoundError:
+        return "Ошибка: Файл emails.html не найден.", 500
+    except Exception as e:
+        print(f"Неизвестная ошибка: {e}")
+        return "Произошла ошибка при обработке запроса.", 500
+
+@app.route('/admin/feedbacks')
+#@login_required
+def admin_feedbacks():
+    try:
+        # Запускаем скрипт emails_show.py и получаем вывод.
+        result = subprocess.run(['python', 'db/feedbacks_show.py'], capture_output=True, text=True, check=True)
+        # Получаем путь к сгенерированному HTML файлу.
+        html_file_path = 'db/feedbacks.html'
+        # Проверяем, существует ли файл
+        if os.path.exists(html_file_path):
+            # Читаем содержимое файла
+            with open(html_file_path, 'r', encoding='utf-8') as f:
+                feedbacks_html = f.read()
+            return feedbacks_html # Возвращаем содержимое файла
+        else:
+            return "Ошибка: Файл feedbacks.html не найден.", 500
+
+    except subprocess.CalledProcessError as e:
+        print(f"Ошибка при запуске feedbacks_show.py: {e}")
+        return "Ошибка при получении списка подписок.", 500  #  Возвращаем ошибку 500
+    except FileNotFoundError:
+        return "Ошибка: Файл feedbacks.html не найден.", 500
+    except Exception as e:
+        print(f"Неизвестная ошибка: {e}")
+        return "Произошла ошибка при обработке запроса.", 500
 
 # -------------------- Маршруты для существующего функционала --------------------
 
