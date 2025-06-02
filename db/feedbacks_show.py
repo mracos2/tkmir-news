@@ -3,8 +3,8 @@ import sqlite3
 from tabulate import tabulate
 import os
 
-DATABASE = 'db/feedbacks.db'
-OUTPUT_FILE = 'db/feedbacks.html'  # Файл сохраняется в папку db
+DATABASE = os.path.abspath('feedbacks.db')
+OUTPUT_FILE = os.path.abspath('feedbacks.html')  # Файл сохраняется в папку db
 
 def get_feedbacks_from_db():
     """Получает все записи из базы данных feedbacks."""

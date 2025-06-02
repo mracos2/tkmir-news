@@ -3,8 +3,8 @@ import sqlite3
 from tabulate import tabulate
 import os
 
-DATABASE = 'db/emails.db'
-OUTPUT_FILE = 'db/emails.html' # Файл сохраняется в папку db
+DATABASE = os.path.abspath('emails.db')
+OUTPUT_FILE = os.path.abspath('emails.html') # Файл сохраняется в папку db
 
 def get_emails_from_db():
     """Получает все записи из базы данных emails."""
