@@ -71,3 +71,10 @@
         width: 100%; /* Full width on smaller screens */
     }
 }
+
+@media (max-width: 585px) {
+    .news-megatitle {
+        text-align: center; /* Center the text */
+        font-size: calc(13.5vw + 17px); /* Adjust the font size to fit */
+    }
+}
