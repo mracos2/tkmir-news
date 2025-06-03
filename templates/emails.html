@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emails</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Emails</h1>
+    <table id="emailsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Данные будут добавлены сюда через JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // emails.html
+
+        fetch('/admin/emails/data') // Новый endpoint для данных
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('emailsTable').getElementsByTagName('tbody')[0];
+                if (data && !data.error) {
+                    data.forEach(email => {
+                        let row = tableBody.insertRow();
+                        let idCell = row.insertCell();
+                        let emailCell = row.insertCell();
+                        let createdAtCell = row.insertCell();
+
+                        idCell.textContent = email.id;
+                        emailCell.textContent = email.email;
+                        createdAtCell.textContent = email.created_at;
+                    });
+                } else {
+                    let row = tableBody.insertRow();
+                    let cell = row.insertCell();
+                    cell.colSpan = 3;
+                    cell.textContent = data.error || "Failed to load emails.";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching emails:', error);
+                const tableBody = document.getElementById('emailsTable').getElementsByTagName('tbody')[0];
+                let row = tableBody.insertRow();
+                let cell = row.insertCell();
+                cell.colSpan = 3;
+                cell.textContent = "Failed to load emails.";
+            });
+    </script>
+</body>
+</html>

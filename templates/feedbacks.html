@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedbacks</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top; /* Выравнивание по верхнему краю */
+        }
+        td:nth-child(6) {  /* Для столбца Message */
+            word-break: break-word;  /* Перенос длинных слов */
+            white-space: normal;    /* Разрешить перенос */
+        }
+    </style>
+</head>
+<body>
+    <h1>Feedbacks</h1>
+    <table id="feedbacksTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Created At</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Данные будут добавлены сюда через JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // feedbacks.html
+
+        fetch('/admin/feedbacks/data') // Новый endpoint для данных
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('feedbacksTable').getElementsByTagName('tbody')[0];
+                if (data && !data.error) {
+                    data.forEach(feedback => {
+                        let row = tableBody.insertRow();
+                        let idCell = row.insertCell();
+                        let createdAtCell = row.insertCell();
+                        let nameCell = row.insertCell();
+                        let emailCell = row.insertCell();
+                        let phoneCell = row.insertCell();
+                        let messageCell = row.insertCell();
+
+                        idCell.textContent = feedback.id;
+                        createdAtCell.textContent = feedback.created_at;
+                        nameCell.textContent = feedback.name;
+                        emailCell.textContent = feedback.email;
+                        phoneCell.textContent = feedback.phone;
+                        messageCell.textContent = feedback.message;
+                    });
+                } else {
+                    let row = tableBody.insertRow();
+                    let cell = row.insertCell();
+                    cell.colSpan = 6;
+                    cell.textContent = data.error || "Failed to load feedbacks.";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching feedbacks:', error);
+                const tableBody = document.getElementById('feedbacksTable').getElementsByTagName('tbody')[0];
+                let row = tableBody.insertRow();
+                let cell = row.insertCell();
+                cell.colSpan = 6;
+                cell.textContent = "Failed to load feedbacks.";
+            });
+    </script>
+</body>
+</html>
