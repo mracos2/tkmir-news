@@ -471,3 +471,58 @@ body {
         height: 30px;
     }
 }
+
+/* Shop Message Styles */
+.shop-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    text-align: center;
+    max-width: 80%;
+}
+
+.shop-message p {
+    font-family: 'Alegreya', serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.shop-message button {
+    padding: 10px 30px;
+    background: linear-gradient(to right, #B7DBFA 27%, #1E80D3 88%);
+    color: white;
+    border: none;
+    border-radius: 34px;
+    font-family: 'Alegreya', serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.shop-message button:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .shop-message {
+        padding: 20px;
+        width: 90%;
+    }
+    
+    .shop-message p {
+        font-size: 18px;
+    }
+    
+    .shop-message button {
+        padding: 8px 20px;
+        font-size: 16px;
+    }
+}
